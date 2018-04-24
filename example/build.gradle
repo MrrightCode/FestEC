@@ -20,6 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':latte-ec')
+    compileOnly 'com.android.support:appcompat-v7:26.1.0'
+    compile project(':latte-ec')
     annotationProcessor project(':latte-compiler')
 }
