@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 /**
  * Create by :yb on 2018/4/23
- * Description: app 管理全局设置 final 类 不会被继承修改
+ * Description:  管理全局设置 final 类 不会被继承修改
  * 对外工具类都是静态的方法
  */
 public final class Latte {

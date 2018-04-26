@@ -60,7 +60,7 @@ public class Configurator {
 
     /**
     *@Create by  yb on 2018/4/24
-    *@params:获取配置集合的方法
+    *@params: 获取配置集合的方法
     *
     */
     public final HashMap<String,Object>getLatteConfigs(){
