@@ -13,6 +13,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 /**
  * Create by :yb on 2018/4/24
  * Description: 基础的Delegate 抽象类来声明 避免了造成new实例
+ * 类主要实现的功能是给Fragment 添加布局
  */
 public abstract class BaseDelegate extends SwipeBackFragment{
 
@@ -22,7 +23,7 @@ public abstract class BaseDelegate extends SwipeBackFragment{
     public abstract Object setLayout();
 
 
-    //强制吧当前的全局数据，和RootView 传出去 可以进行操作
+    //强制把当前的全局数据，和RootView 传出去 可以进行操作
     public abstract void onBinView(@Nullable Bundle savedInstanceState ,View rootView );
 
 
@@ -38,6 +39,7 @@ public abstract class BaseDelegate extends SwipeBackFragment{
             rootView = (View) setLayout();
         }
 
+        //布局进行绑定
         if(rootView != null){
             mBind = ButterKnife.bind(this,rootView);
             onBinView(savedInstanceState,rootView);

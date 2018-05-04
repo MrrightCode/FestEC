@@ -40,7 +40,12 @@ public abstract class ProxyActivity extends SupportActivity {
         container.setId(R.id.dalegate_container);
         setContentView(container);
         if(savedInstanceState == null){
-            //这个方法会是我们引入的fragmentation.SupportActivity的方法
+            /**
+            *@Create by  yb on 2018/4/26
+            *@params:[savedInstanceState]
+            *这个方法会是我们引入的fragmentation.SupportActivity的方法
+             * 实现传入Fragment 和容易测板顶
+            */
             loadRootFragment(R.id.dalegate_container,setRootDelegate());
         }
     }
