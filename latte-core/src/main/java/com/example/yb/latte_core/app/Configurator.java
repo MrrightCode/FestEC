@@ -20,7 +20,7 @@ public class Configurator {
 
     /**
     *@Create by  yb on 2018/4/24
-    *@params: iconify 初始化  并且封装在配置类中
+    *@params: iconify 图标库 初始化  并且封装在配置类中
     *
     */
     private static final ArrayList<IconFontDescriptor> ICON_FONT_DESCRIPTORS = new ArrayList<>();
@@ -85,8 +85,8 @@ public class Configurator {
     */
     private  void checkConfiguration(){
         final boolean isReady = (boolean) LATTE_CONFIGS.get(Configtype.CONFIG_READY.name());
-        if(isReady){
-            throw new RuntimeException("Configuration is not ready  call configure");
+        if(!isReady){
+            throw new RuntimeException("Configuration is not ready  call configure!");
         }
     }
 

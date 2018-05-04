@@ -8,9 +8,9 @@ import com.joanzapata.iconify.Icon;
  */
 public enum  EcIcons implements Icon {
 
+    //处理删除&#x 加上\u
     icon_scan('\ue64c'),
-    icon_ali_pay('\ue610')
-    ;
+    icon_ali_pay('\ue610');
 
     private char character;
 
