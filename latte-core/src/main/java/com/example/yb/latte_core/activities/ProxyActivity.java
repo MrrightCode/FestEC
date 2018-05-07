@@ -34,17 +34,17 @@ public abstract class ProxyActivity extends SupportActivity {
         /**
         *@Create by  yb on 2018/4/25
         *@params:[savedInstanceState]
-        *自己新建了一个FramLaout 容器container 然后为他设置一个id 再将这个容器设置给 Activity作为视图
+        *自己新建了一个FramLayout 容器container 然后为他设置一个id 再将这个容器设置给 Activity作为视图
         */
-        final ContentFrameLayout container = new ContentFrameLayout(this);
-        container.setId(R.id.dalegate_container);
-        setContentView(container);
+        final ContentFrameLayout frameLayout = new ContentFrameLayout(this);
+        frameLayout.setId(R.id.dalegate_container);
+        setContentView(frameLayout);
         if(savedInstanceState == null){
             /**
             *@Create by  yb on 2018/4/26
             *@params:[savedInstanceState]
             *这个方法会是我们引入的fragmentation.SupportActivity的方法
-             * 实现传入Fragment 和容易测板顶
+             * 实现传入容器和Fragment
             */
             loadRootFragment(R.id.dalegate_container,setRootDelegate());
         }

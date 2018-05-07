@@ -20,6 +20,5 @@ public class LatteApp extends Application {
                 .withIcon(new FontEcModule())
                 .withApiHost("http://127.0.0.1")
                 .configure();
-
     }
 }

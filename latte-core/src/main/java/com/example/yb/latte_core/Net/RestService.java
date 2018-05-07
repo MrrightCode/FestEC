@@ -23,7 +23,7 @@ import retrofit2.http.Url;
  */
 public interface RestService {
 
-    //基类封装所以不传参数
+
     @GET
     Call<String> get(@Url String url, @QueryMap Map<String,Object> params);
 

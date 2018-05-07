@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.example.yb.latte_core.Net.RestClient;
+import com.example.yb.latte_core.Net.callback.ISuccess;
 import com.example.yb.latte_core.delegates.LatteDelegate;
 
 /**
@@ -21,5 +23,8 @@ public class ExampleDelegate extends LatteDelegate{
     @Override
     public void onBinView(@Nullable Bundle savedInstanceState, View rootView) {
 
+
     }
+
+
 }
