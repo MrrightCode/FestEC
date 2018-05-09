@@ -4,6 +4,7 @@ package com.example.yb.latte_core.Net;
 import com.example.yb.latte_core.app.Configtype;
 import com.example.yb.latte_core.app.Latte;
 
+import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -19,6 +20,14 @@ public class RestCreator {
 
     public static RestService getResetService(){
         return ResetServiceHolder.REST_SERVICE;
+    }
+
+    public static WeakHashMap<String,Object> getParams(){
+        return paramsHolder.params;
+    }
+
+    private static final class paramsHolder{
+        private static final WeakHashMap<String,Object> params = new WeakHashMap<>();
     }
 
     private static final class RetrofitHolder{

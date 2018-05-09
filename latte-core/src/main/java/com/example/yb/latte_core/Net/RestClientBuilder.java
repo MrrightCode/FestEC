@@ -17,13 +17,14 @@ import okhttp3.RequestBody;
 public class RestClientBuilder {
 
     private String mUrl;
-    private Map<String, Object> mParams;
+    private static final Map<String, Object> mParams = RestCreator.getParams();
     private ISuccess mISuccess;
     private IRequest mIRequest;
     private IError mIError;
     private IFailure mIFailure;
     private RequestBody mBody;
 
+    //只允许同包的类通过new方法创建
     RestClientBuilder() {
     }
 
@@ -32,15 +33,12 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder params(Map<String, Object> params) {
-        this.mParams = params;
+    public final RestClientBuilder params(WeakHashMap<String, Object> params) {
+       mParams.putAll(params);
         return this;
     }
 
     public final RestClientBuilder params(String key, Object value) {
-        if (mParams == null) {
-            mParams = new WeakHashMap<>();
-        }
         mParams.put(key, value);
         return this;
     }
@@ -68,13 +66,6 @@ public class RestClientBuilder {
     public final RestClientBuilder onRequest(IRequest request) {
         this.mIRequest = request;
         return this;
-    }
-
-    private Map<String,Object> cheackParams(){
-        if(mParams == null){
-            return new WeakHashMap<>();
-        }
-        return mParams;
     }
 
     public final RestClient build(){
