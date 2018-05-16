@@ -13,6 +13,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by yangbin on 2018/5/7.
+ * 这个类的主要目的是为了返回
  */
 public class RestCreator {
 
@@ -23,11 +24,11 @@ public class RestCreator {
     }
 
     public static WeakHashMap<String,Object> getParams(){
-        return paramsHolder.params;
+        return ParamsHolder.PARAMS;
     }
 
-    private static final class paramsHolder{
-        private static final WeakHashMap<String,Object> params = new WeakHashMap<>();
+    private static final class ParamsHolder{
+        private static final WeakHashMap<String,Object> PARAMS = new WeakHashMap<>();
     }
 
     private static final class RetrofitHolder{

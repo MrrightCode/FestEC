@@ -13,6 +13,7 @@ public class RequestCallback implements Callback<String> {
     private final IError ERROR;
     private final IFailure FAILURE;
 
+    //构造方法
     public RequestCallback(ISuccess success, IRequest request, IError error, IFailure failure) {
         this.SUCCESS = success;
         this.REQUEST = request;
@@ -43,6 +44,7 @@ public class RequestCallback implements Callback<String> {
             FAILURE.onFailure();
         }
 
+        //请求结束
         if(REQUEST != null){
             REQUEST.onRequestEnd();
         }

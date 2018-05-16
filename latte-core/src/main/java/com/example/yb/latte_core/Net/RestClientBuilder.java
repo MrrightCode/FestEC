@@ -13,6 +13,7 @@ import okhttp3.RequestBody;
 
 /**
  * Created by yangbin on 2018/5/7.
+ * 建造者模式的builder 主要是为RestClient赋值
  */
 public class RestClientBuilder {
 

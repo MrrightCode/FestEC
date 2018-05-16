@@ -27,6 +27,7 @@ public class RestClient {
     private final IRequest REQUEST;
     private final IError ERROR;
     private final IFailure FAILURE;
+    //okhttp3里面的东西
     private final RequestBody BODY;
 
     public RestClient(String url,
@@ -80,19 +81,22 @@ public class RestClient {
     }
 
     public RequestCallback getRequestCallBack() {
-        return new RequestCallback(SUCCESS,REQUEST,ERROR,FAILURE);
+        return new RequestCallback(SUCCESS, REQUEST, ERROR, FAILURE);
     }
 
-    public final void get(){
+    public final void get() {
         request(HttpMethod.GET);
     }
-    public final void post(){
+
+    public final void post() {
         request(HttpMethod.POST);
     }
-    public final void put(){
+
+    public final void put() {
         request(HttpMethod.PUT);
     }
-    public final void delete(){
+
+    public final void delete() {
         request(HttpMethod.DELETE);
     }
 }
