@@ -1,4 +1,4 @@
-package com.example.yb.latte_core.UI;
+package com.example.yb.latte_core.ui;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -32,13 +32,14 @@ public class LoaderCreator {
         return avLoadingIndicatorView;
     }
 
+    //实例化 类型
     private static Indicator getIndicator(String name) {
         if (TextUtils.isEmpty(name)) {
             return null;
         }
         final StringBuilder drawableClassName = new StringBuilder();
         if (!name.contains(".")) {
-            final String defaultPackageName = AVLoadingIndicatorView.class.getName();
+            final String defaultPackageName = AVLoadingIndicatorView.class.getPackage().getName();
             drawableClassName.append(defaultPackageName)
                     .append(".indicators")
                     .append(".");

@@ -1,9 +1,12 @@
-package com.example.yb.latte_core.Net;
+package com.example.yb.latte_core.net;
 
-import com.example.yb.latte_core.Net.callback.IError;
-import com.example.yb.latte_core.Net.callback.IFailure;
-import com.example.yb.latte_core.Net.callback.IRequest;
-import com.example.yb.latte_core.Net.callback.ISuccess;
+import android.content.Context;
+
+import com.example.yb.latte_core.net.callback.IError;
+import com.example.yb.latte_core.net.callback.IFailure;
+import com.example.yb.latte_core.net.callback.IRequest;
+import com.example.yb.latte_core.net.callback.ISuccess;
+import com.example.yb.latte_core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -17,13 +20,15 @@ import okhttp3.RequestBody;
  */
 public class RestClientBuilder {
 
-    private String mUrl;
+    private String mUrl = null;
     private static final Map<String, Object> mParams = RestCreator.getParams();
     private ISuccess mISuccess;
     private IRequest mIRequest;
     private IError mIError;
     private IFailure mIFailure;
     private RequestBody mBody;
+    private Context mContext;
+    private LoaderStyle mLoaderStyle;
 
     //只允许同包的类通过new方法创建
     RestClientBuilder() {
@@ -69,8 +74,19 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder loader(Context context,LoaderStyle loaderStyle){
+        this.mContext = context;
+        this.mLoaderStyle = loaderStyle;
+        return this;
+    }
+    public final RestClientBuilder loader(Context context){
+        this.mContext = context;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
     public final RestClient build(){
-        return new RestClient(mUrl,mParams,mISuccess,mIRequest,mIError,mIFailure,mBody);
+        return new RestClient(mUrl,mParams,mISuccess,mIRequest,mIError,mIFailure,mBody,mContext,mLoaderStyle);
     }
 
 }

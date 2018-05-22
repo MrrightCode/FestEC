@@ -1,4 +1,4 @@
-package com.example.yb.latte_core.Net;
+package com.example.yb.latte_core.net;
 
 /**
  * Created by yangbin on 2018/5/7.

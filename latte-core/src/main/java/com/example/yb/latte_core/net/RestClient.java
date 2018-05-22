@@ -1,18 +1,19 @@
-package com.example.yb.latte_core.Net;
+package com.example.yb.latte_core.net;
 
-import android.net.Uri;
+import android.content.Context;
 
-import com.example.yb.latte_core.Net.callback.IError;
-import com.example.yb.latte_core.Net.callback.IFailure;
-import com.example.yb.latte_core.Net.callback.IRequest;
-import com.example.yb.latte_core.Net.callback.ISuccess;
-import com.example.yb.latte_core.Net.callback.RequestCallback;
+import com.example.yb.latte_core.net.callback.IError;
+import com.example.yb.latte_core.net.callback.IFailure;
+import com.example.yb.latte_core.net.callback.IRequest;
+import com.example.yb.latte_core.net.callback.ISuccess;
+import com.example.yb.latte_core.net.callback.RequestCallback;
+import com.example.yb.latte_core.ui.LatteLoader;
+import com.example.yb.latte_core.ui.LoaderStyle;
 
 import java.util.Map;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 
 /**
  * Create by :yb on 2018/4/26
@@ -29,6 +30,8 @@ public class RestClient {
     private final IFailure FAILURE;
     //okhttp3里面的东西
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
 
     public RestClient(String url,
                       Map<String, Object> params,
@@ -36,7 +39,9 @@ public class RestClient {
                       IRequest request,
                       IError error,
                       IFailure failure,
-                      RequestBody body) {
+                      RequestBody body,
+                      Context context,
+                      LoaderStyle loaderStyle) {
         this.URL = url;
         PARMAS.putAll(params);
         this.SUCCESS = success;
@@ -44,6 +49,8 @@ public class RestClient {
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.CONTEXT = context;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     public static RestClientBuilder builder() {
@@ -56,6 +63,10 @@ public class RestClient {
 
         if (REQUEST != null) {
             REQUEST.onRequestStart();
+        }
+
+        if(LOADER_STYLE != null){
+            LatteLoader.showLoading(CONTEXT,LOADER_STYLE);
         }
 
         switch (httpMethod) {
@@ -81,7 +92,7 @@ public class RestClient {
     }
 
     public RequestCallback getRequestCallBack() {
-        return new RequestCallback(SUCCESS, REQUEST, ERROR, FAILURE);
+        return new RequestCallback(SUCCESS, REQUEST, ERROR, FAILURE,LOADER_STYLE);
     }
 
     public final void get() {

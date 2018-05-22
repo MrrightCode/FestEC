@@ -1,4 +1,4 @@
-package com.example.yb.latte_core.UI;
+package com.example.yb.latte_core.ui;
 
 /**
  * Created by yangbin on 2018/5/17.

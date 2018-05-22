@@ -1,4 +1,4 @@
-package com.example.yb.latte_core.Net;
+package com.example.yb.latte_core.net;
 
 
 import com.example.yb.latte_core.app.Configtype;
