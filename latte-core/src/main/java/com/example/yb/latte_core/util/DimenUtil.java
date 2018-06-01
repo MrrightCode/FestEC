@@ -12,7 +12,6 @@ public class DimenUtil {
 
     /**
      * 得到屏幕的宽度
-     * @return
      */
     public static int getScreenWidth(){
         final Resources resources = Latte.getApplicationContext().getResources();

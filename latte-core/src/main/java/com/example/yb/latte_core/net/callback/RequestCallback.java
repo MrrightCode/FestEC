@@ -12,6 +12,7 @@ import retrofit2.Response;
 
 /**
  * Created by yangbin on 2018/5/8.
+ * 这个callback 是实现了Retrofit 里面的callback
  */
 public class RequestCallback implements Callback<String> {
     private final ISuccess SUCCESS;
@@ -46,6 +47,10 @@ public class RequestCallback implements Callback<String> {
             }
         }
 
+        stopLoading();
+    }
+
+    private void stopLoading() {
         if(LOADER_STYLE != null){
             HANDLER.postDelayed(new Runnable() {
                 @Override
@@ -66,5 +71,6 @@ public class RequestCallback implements Callback<String> {
         if(REQUEST != null){
             REQUEST.onRequestEnd();
         }
+        stopLoading();
     }
 }

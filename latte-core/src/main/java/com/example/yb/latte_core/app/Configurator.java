@@ -27,7 +27,7 @@ public class Configurator {
 
     /**
     *@Create by  yb on 2018/4/24
-    *@params: 私有化构造函数 开始上设置配置时 位置完成度为false
+    *@params: 私有化构造函数 开始上设置配置时 设置完成度为false
     *
     */
     private Configurator(){
