@@ -2,9 +2,12 @@ package com.example.yb.latte_core.app;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.wang.avi.Indicator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import okhttp3.Interceptor;
 
 /**
  * Create by :yb on 2018/4/23
@@ -16,7 +19,8 @@ public class Configurator {
     *@Create by  yb on 2018/4/24
     *@params: static final类 命名规范 全大写加下划线分割
     */
-    private static final HashMap<String,Object> LATTE_CONFIGS = new HashMap<>();
+    private static final HashMap<Object,Object> LATTE_CONFIGS = new HashMap<>();
+
 
     /**
     *@Create by  yb on 2018/4/24
@@ -24,6 +28,8 @@ public class Configurator {
     *
     */
     private static final ArrayList<IconFontDescriptor> ICON_FONT_DESCRIPTORS = new ArrayList<>();
+
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     /**
     *@Create by  yb on 2018/4/24
@@ -63,7 +69,7 @@ public class Configurator {
     *@params: 获取配置集合的方法
     *
     */
-    public final HashMap<String,Object>getLatteConfigs(){
+    public final HashMap<Object,Object>getLatteConfigs(){
         return LATTE_CONFIGS;
     }
 
@@ -114,6 +120,18 @@ public class Configurator {
                 initializer.with(ICON_FONT_DESCRIPTORS.get(i));
             }
         }
+    }
+
+    public final Configurator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(Configtype.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(Configtype.INTERCEPTOR,interceptors);
+        return this;
     }
 
     /**

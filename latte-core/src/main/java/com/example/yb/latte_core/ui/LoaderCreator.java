@@ -32,7 +32,12 @@ public class LoaderCreator {
         return avLoadingIndicatorView;
     }
 
-    //实例化 类型
+    /**
+     *这个方法用反射的原理根据类型的名字返回类型实例
+     * 采用反射的原因是 可以根据TYPE 类动态的返回类型实例
+     * @param name 类型名
+     * @return 这里返回的是Loader 的类型
+     */
     private static Indicator getIndicator(String name) {
         if (TextUtils.isEmpty(name)) {
             return null;

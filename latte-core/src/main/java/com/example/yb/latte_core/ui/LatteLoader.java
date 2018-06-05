@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.yb.latte_core.R;
-import com.example.yb.latte_core.util.DimenUtil;
+import com.example.yb.latte_core.util.Dimen.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;

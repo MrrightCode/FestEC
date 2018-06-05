@@ -7,11 +7,15 @@ import com.example.yb.latte_core.net.callback.IFailure;
 import com.example.yb.latte_core.net.callback.IRequest;
 import com.example.yb.latte_core.net.callback.ISuccess;
 import com.example.yb.latte_core.net.callback.RequestCallback;
+import com.example.yb.latte_core.net.download.DownLoadHandler;
 import com.example.yb.latte_core.ui.LatteLoader;
 import com.example.yb.latte_core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -28,6 +32,10 @@ public class RestClient {
     private final IRequest REQUEST;
     private final IError ERROR;
     private final IFailure FAILURE;
+    private final File FILE;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     //okhttp3里面的东西
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
@@ -35,20 +43,28 @@ public class RestClient {
 
     public RestClient(String url,
                       Map<String, Object> params,
+                      String downloadDir,
+                      String extension,
+                      String name,
                       ISuccess success,
                       IRequest request,
                       IError error,
                       IFailure failure,
                       RequestBody body,
+                      File file,
                       Context context,
                       LoaderStyle loaderStyle) {
         this.URL = url;
         PARMAS.putAll(params);
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
         this.SUCCESS = success;
         this.REQUEST = request;
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.FILE = file;
         this.CONTEXT = context;
         this.LOADER_STYLE = loaderStyle;
     }
@@ -81,7 +97,16 @@ public class RestClient {
                 break;
             case POST:
                 call = service.post(URL, PARMAS);
+            case POST_RAW:
+                call = service.postRaw(URL,BODY);
                 break;
+            case PUT_RAW:
+                call = service.putRaw(URL,BODY);
+            case UPLOAD:
+                final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()),FILE);
+                final MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
+                call = service.upload(URL,body);
             default:
                 break;
         }
@@ -100,15 +125,33 @@ public class RestClient {
     }
 
     public final void post() {
-        request(HttpMethod.POST);
+        if(BODY ==  null){
+            request(HttpMethod.POST);
+        }else {
+            if(!PARMAS.isEmpty()){
+                throw new RuntimeException("PARMAS  must be null");
+            }
+            request(HttpMethod.POST_RAW);
+        }
     }
 
     public final void put() {
-        request(HttpMethod.PUT);
+        if(BODY ==  null){
+            request(HttpMethod.PUT);
+        }else {
+            if(!PARMAS.isEmpty()){
+                throw new RuntimeException("PARMAS  must be null");
+            }
+            request(HttpMethod.PUT_RAW);
+        }
     }
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public final void download(){
+        new DownLoadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handleDownload();
     }
 }
 

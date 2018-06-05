@@ -4,9 +4,11 @@ package com.example.yb.latte_core.net;
 import com.example.yb.latte_core.app.Configtype;
 import com.example.yb.latte_core.app.Latte;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -17,21 +19,22 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RestCreator {
 
-    private RestCreator(){}
+    private RestCreator() {
+    }
 
-    public static RestService getResetService(){
+    public static RestService getResetService() {
         return ResetServiceHolder.REST_SERVICE;
     }
 
-    public static WeakHashMap<String,Object> getParams(){
+    public static WeakHashMap<String, Object> getParams() {
         return ParamsHolder.PARAMS;
     }
 
-    private static final class ParamsHolder{
-        private static final WeakHashMap<String,Object> PARAMS = new WeakHashMap<>();
+    private static final class ParamsHolder {
+        private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     }
 
-    private static final class RetrofitHolder{
+    private static final class RetrofitHolder {
         private static final String BASE_URL = (String) Latte.getConfigurations().get(Configtype.API_HOSET.name());
         private static final Retrofit RETROFIT = new Retrofit.Builder()
                 .client(OkhttpHolder.OK_HTTP_CLIENT)
@@ -40,14 +43,26 @@ public class RestCreator {
                 .build();
     }
 
-    private static final class OkhttpHolder{
+    private static final class OkhttpHolder {
         private static final int TIME_OUT = 60;
-        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
-                .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Latte.getConfigurations().get(Configtype.INTERCEPTOR.name());
+
+        private static OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()) {
+                for (Interceptor interceptor : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+
+        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
+                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
     }
 
-    private static final class ResetServiceHolder{
+    private static final class ResetServiceHolder {
         private static final RestService REST_SERVICE =
                 RetrofitHolder.RETROFIT.create(RestService.class);
     }

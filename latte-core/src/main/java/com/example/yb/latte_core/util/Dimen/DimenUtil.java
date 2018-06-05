@@ -1,4 +1,4 @@
-package com.example.yb.latte_core.util;
+package com.example.yb.latte_core.util.Dimen;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;

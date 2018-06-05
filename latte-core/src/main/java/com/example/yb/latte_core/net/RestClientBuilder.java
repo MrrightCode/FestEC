@@ -8,6 +8,7 @@ import com.example.yb.latte_core.net.callback.IRequest;
 import com.example.yb.latte_core.net.callback.ISuccess;
 import com.example.yb.latte_core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -29,6 +30,10 @@ public class RestClientBuilder {
     private RequestBody mBody;
     private Context mContext;
     private LoaderStyle mLoaderStyle;
+    private File mFile;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     //只允许同包的类通过new方法创建
     RestClientBuilder() {
@@ -85,8 +90,34 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder file(String file){
+        this.mFile = new File(file);
+        return this;
+    }
+
+    public final RestClientBuilder file(File file){
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
     public final RestClient build(){
-        return new RestClient(mUrl,mParams,mISuccess,mIRequest,mIError,mIFailure,mBody,mContext,mLoaderStyle);
+        return new RestClient(mUrl,mParams,mDownloadDir, mExtension, mName,mISuccess,
+                mIRequest,mIError,mIFailure,mBody,mFile,mContext,mLoaderStyle);
     }
 
 }
